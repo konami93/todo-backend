@@ -1,98 +1,221 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Todo List Backend API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend API for task management application built with NestJS, Prisma, and MySQL.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 🚀 Technologies
 
-## Description
+- **Node.js** - JavaScript runtime
+- **NestJS** - Node.js framework
+- **Prisma** - Database ORM
+- **MySQL** - Relational database
+- **JWT** - Token-based authentication
+- **TypeScript** - JavaScript with static typing
+- **Bcrypt** - Password hashing
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 📋 Prerequisites
 
-## Project setup
+- Node.js (v18 or higher)
+- MySQL (v8 or higher)
+- npm or yarn
 
+## 🔧 Installation
+
+1. **Clone the repository**
 ```bash
-$ npm install
+git clone <repository-url>
+cd todo-backend
 ```
 
-## Compile and run the project
-
+2. **Install dependencies**
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+3. **Configure environment variables**
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+Create a `.env` file in the root:
+```env
+DATABASE_URL="mysql://root:password@localhost:3306/todo_db"
+JWT_SECRET="your-secure-jwt-secret"
+JWT_EXPIRES_IN=604800
+PORT=3000
+NODE_ENV="development"
+CORS_ORIGIN="http://localhost:5173"
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+4. **Create the database**
+```sql
+CREATE DATABASE todo_db;
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+5. **Run migrations**
+```bash
+npx prisma migrate dev
+npx prisma generate
+```
 
-## Resources
+## 🚀 Running the Application
+```bash
+npm run start:dev
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+API will be available at `http://localhost:3000/api`
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## 📚 API Endpoints
 
-## Support
+### Authentication
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+#### Register
+```http
+POST /api/auth/register
+Content-Type: application/json
 
-## Stay in touch
+{
+  "email": "user@example.com",
+  "password": "password123",
+  "name": "John Doe"
+}
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+#### Login
+```http
+POST /api/auth/login
+Content-Type: application/json
 
-## License
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+#### Get Profile
+```http
+GET /api/auth/me
+Authorization: Bearer <token>
+```
+
+### Tasks (authentication required)
+
+#### Create Task
+```http
+POST /api/tasks
+Authorization: Bearer <token>
+
+{
+  "title": "My task",
+  "description": "Task description",
+  "dueDate": "2024-12-31T23:59:59Z"
+}
+```
+
+#### List Tasks
+```http
+GET /api/tasks
+GET /api/tasks?status=PENDING
+GET /api/tasks?status=COMPLETED
+Authorization: Bearer <token>
+```
+
+#### Get Task
+```http
+GET /api/tasks/:id
+Authorization: Bearer <token>
+```
+
+#### Update Task
+```http
+PATCH /api/tasks/:id
+Authorization: Bearer <token>
+
+{
+  "title": "New title",
+  "status": "COMPLETED"
+}
+```
+
+#### Delete Task
+```http
+DELETE /api/tasks/:id
+Authorization: Bearer <token>
+```
+
+#### Get Statistics
+```http
+GET /api/tasks/statistics
+Authorization: Bearer <token>
+```
+
+## 🗄️ Data Models
+
+### User
+- id (UUID)
+- email (String, unique)
+- password (String, hashed)
+- name (String, optional)
+- createdAt (DateTime)
+- updatedAt (DateTime)
+
+### Task
+- id (UUID)
+- title (String)
+- description (String, optional)
+- dueDate (DateTime, optional)
+- status (PENDING | COMPLETED)
+- userId (UUID)
+- createdAt (DateTime)
+- updatedAt (DateTime)
+
+## 🏗️ Architecture
+```
+src/
+├── auth/              # Authentication module
+│   ├── decorators/    # Custom decorators
+│   ├── dto/           # Data Transfer Objects
+│   ├── guards/        # Authorization guards
+│   └── strategies/    # Passport strategies
+├── tasks/             # Tasks module
+│   ├── dto/           # Task DTOs
+│   ├── tasks.controller.ts
+│   ├── tasks.service.ts
+│   └── tasks.module.ts
+├── prisma/            # Prisma service
+└── main.ts            # Entry point
+```
+
+## 🔐 Security
+
+- Passwords hashed with bcrypt (10 rounds)
+- JWT for stateless authentication
+- NestJS guards to protect routes
+- Data validation with class-validator
+- CORS configured
+
+## 📦 Scripts
+```bash
+npm run start:dev      # Development mode
+npm run build          # Build for production
+npm run start:prod     # Production mode
+npx prisma studio      # Database UI
+```
+
+## 🛠️ Technical Decisions
+
+### Why NestJS?
+Chosen for its modular architecture, robust dependency injection system, and excellent TypeScript integration. Facilitates creation of scalable and maintainable APIs.
+
+### Why Prisma?
+Modern ORM that offers:
+- Type-safety with TypeScript
+- Automatic migrations
+- Auto-generated client
+- Excellent developer experience with Prisma Studio
+
+### Why JWT?
+Implemented for stateless authentication, allowing:
+- Horizontal scalability
+- No session storage required
+- Easy frontend integration
+
+## 👤 Author
+
+**Yaniel**
