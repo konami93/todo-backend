@@ -182,14 +182,6 @@ src/
 └── main.ts            # Entry point
 ```
 
-## 🔐 Security
-
-- Passwords hashed with bcrypt (10 rounds)
-- JWT for stateless authentication
-- NestJS guards to protect routes
-- Data validation with class-validator
-- CORS configured
-
 ## 📦 Scripts
 ```bash
 npm run start:dev      # Development mode
@@ -197,25 +189,3 @@ npm run build          # Build for production
 npm run start:prod     # Production mode
 npx prisma studio      # Database UI
 ```
-
-## 🛠️ Technical Decisions
-
-### Why NestJS?
-Chosen for its modular architecture, robust dependency injection system, and excellent TypeScript integration. Facilitates creation of scalable and maintainable APIs.
-
-### Why Prisma?
-Modern ORM that offers:
-- Type-safety with TypeScript
-- Automatic migrations
-- Auto-generated client
-- Excellent developer experience with Prisma Studio
-
-### Why JWT?
-Implemented for stateless authentication, allowing:
-- Horizontal scalability
-- No session storage required
-- Easy frontend integration
-
-## 👤 Author
-
-**Yaniel**
